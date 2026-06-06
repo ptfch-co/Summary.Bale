@@ -1,0 +1,39 @@
+@model Summary.Bale.Workflows.Task.Message.Send.SendMessageInBaleTaskViewModel
+
+<div class="row">
+  <div class="col-md-3">
+    <div class="form-group" asp-validation-class-for="PhoneNo">
+      <label asp-for="PhoneNo">
+        شماره همراه مخاطب<span class="text-danger">*</span>
+      </label>
+      <input type="text" asp-for="PhoneNo" class="form-control" />
+      <span class="hint">
+        در این فیلد شماره همراه مخاطبی را درج نمایید که قصد دارید پیغام برای آن مخاطب ارسال گردد. مثال: 09123456789
+      </span>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="form-group">
+      <label asp-for="File">
+        لینک فایل ضمیمه
+      </label>
+      <input type="text" asp-for="File" class="form-control" />
+      <span class="hint">
+        در این فیلد می‌توانید لینک(URL) فایل ضمیمه‌ای که قصد دارید همراه با پیغام ارسال گردد را درج نمایید.
+        توجه داشته باشید که فایل‌های با حجم کمتر از ۲۰ مگابایت قابل ارسال هستند.
+        مثال: https://example.com/path/to/your/file.jpg
+      </span>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="form-group" asp-validation-class-for="Message">
+      <label asp-for="Message">
+        متن پیغام<span class="text-danger">*</span>
+      </label>
+      <textarea type="text" asp-for="Message" rows="5" class="form-control"></textarea>
+      <span class="hint">
+        در این فیلد متن پیغامی که قصد دارید برای مخاطب ارسال شود را درج نمایید.
+      </span>
+    </div>
+  </div>
+</div>

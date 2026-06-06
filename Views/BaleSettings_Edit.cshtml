@@ -1,0 +1,26 @@
+@model Summary.Bale.BaleSettings
+
+<div class="row">
+    <div class="col-md-3">
+        <div class="form-group" asp-validation-class-for="ApiAccessKey">
+            <label asp-for="ApiAccessKey">
+                توکن وب سرویس(API)<span class="text-danger">*</span>
+            </label>
+            <input type="text" asp-for="ApiAccessKey" class="form-control" />
+            <span class="hint">
+                جهت ارسال پیغام از طریق پیام رسان بله مقداردهی این فیلد الزامی است. در این فیلد توکن وب سرویس درج می‌گردد. مثال: SXvbFhxeNXvPRq
+            </span>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="form-group" asp-validation-class-for="Bot_Id">
+            <label asp-for="Bot_Id">
+                شناسه بازو(بات)<span class="text-danger">*</span>
+            </label>
+			      <input type="number" asp-for="Bot_Id" class="form-control" />
+            <span class="hint">
+        				از طریق این فیلد مشخص کنید پیغام از طریق چه باتی به دست مخاطب برسد. مثال: 1360421000
+            </span>
+        </div>
+    </div>
+</div>
