@@ -9,6 +9,7 @@ namespace Summary.Bale
         public static void MobileIsNotValid(string mobile)
         {
             if (String.IsNullOrWhiteSpace(mobile)) throw new ObjectDoesNotExist();
+            if (mobile.IsMobileNumber() is false) throw new ObjectDoesNotExist();
         }
 
         public static void SendMessageResponseIsNotOk(
