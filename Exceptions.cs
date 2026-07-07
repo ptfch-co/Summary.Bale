@@ -1,15 +1,16 @@
+using Core.Workflows;
+using Core.Mvc.Core;
 using System;
+using Core.Mvc.Utilities;
 
 namespace Summary.Bale
 {
-    using Core.Workflows;
-
     public static class ThrowExceptionIf
     {
         public static void MobileIsNotValid(string mobile)
         {
             if (String.IsNullOrWhiteSpace(mobile)) throw new ObjectDoesNotExist();
-            if (mobile.IsMobileNumber() is false) throw new ObjectDoesNotExist();
+            if (mobile.IsMobileNo() is false) throw new ObjectDoesNotExist();
         }
 
         public static void SendMessageResponseIsNotOk(
