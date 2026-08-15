@@ -16,7 +16,7 @@ namespace Summary.Bale.Services
     using System.Net.Http;
     using System.Threading.Tasks;
 
-    public interface IMessageService
+    public interface ISafirMessageService
     {
         Task SendMessageAsync(
             string phone_no,
@@ -25,7 +25,7 @@ namespace Summary.Bale.Services
         );
     }
 
-    public class MessageService : IMessageService
+    public class SafirMessageService : ISafirMessageService
     {
         private readonly HttpRequestClient _client;
         private readonly BaleSettings _options;
@@ -33,7 +33,7 @@ namespace Summary.Bale.Services
 
         private const string URL = "https://safir.bale.ai";
 
-        public MessageService(
+        public SafirMessageService(
             HttpRequestClient client,
             IOptions<BaleSettings> options,
             IMemoryCache memory)

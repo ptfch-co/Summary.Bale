@@ -12,11 +12,11 @@ namespace Summary.Bale.Workflows.Task.Message.Send
     public class SendMessageInBaleTask : TaskActivity
     {
         private readonly IStringLocalizer<SendMessageInBaleTask> T;
-        private readonly IMessageService _message;
+        private readonly ISafirMessageService _message;
 
         public SendMessageInBaleTask(
             IStringLocalizer<SendMessageInBaleTask> t,
-            IMessageService message)
+            ISafirMessageService message)
         {
             T = t;
             _message = message;

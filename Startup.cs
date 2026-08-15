@@ -17,7 +17,7 @@ namespace Summary.Bale
         public override void ConfigureServices(IServiceCollection services)
         {
             services.AddScoped<INavigationProvider, Menu>();
-            services.AddScoped<IMessageService, MessageService>();
+            services.AddScoped<ISafirMessageService, SafirMessageService>();
             services.AddScoped<IPermissionProvider, Permissions>();
             services.AddScoped<IDisplayDriver<ISite>, BaleSettingsDisplayDriver>();
 
