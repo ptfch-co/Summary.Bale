@@ -32,7 +32,7 @@ namespace Summary.Bale.Workflows.Task.Bot.Message.Send
             WorkflowExecutionContext workflowContext,
             ActivityContext activityContext)
         {
-            return Outcomes(T[Bale.Workflows.Done], T[Bale.Workflows.NotExist]);
+            return Outcomes(T[Bale.Workflows.Done]);
         }
 
         public string To
@@ -61,26 +61,13 @@ namespace Summary.Bale.Workflows.Task.Bot.Message.Send
             var message = workflowContext.GetInputOrDefault(Message);
             var file = workflowContext.GetInputOrDefault(File);
 
-            try
-            {
-                await _message.SendMessageAsync(
-                    to,
-                    message,
-                    file
-                );
+            await _message.SendMessageAsync(
+                to,
+                message,
+                file
+            );
 
-                return Outcomes(Bale.Workflows.Done);
-            }
-
-            catch (ObjectDoesNotExist)
-            {
-                return Outcomes(Bale.Workflows.NotExist);
-            }
-
-            catch
-            {
-                throw;
-            }
+            return Outcomes(Bale.Workflows.Done);
         }
     }
 }

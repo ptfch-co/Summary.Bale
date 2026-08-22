@@ -1,18 +1,10 @@
-using System;
-using System.Collections.Generic;
-using Microsoft.AspNetCore.Mvc.Formatters;
-using Microsoft.Extensions.Options;
-using Newtonsoft.Json;
-
 namespace Summary.Bale.Services
 {
     using Core.Mvc.Utilities;
     using Core.Workflows;
-    using Core.Workflows.Helpers;
-    using System.Collections.Concurrent;
-    using System.IO;
-    using System.Linq;
-    using System.Net.Http;
+    using Microsoft.Extensions.Options;
+    using Newtonsoft.Json;
+    using System;
     using System.Threading.Tasks;
 
     public interface IBotService
@@ -43,22 +35,21 @@ namespace Summary.Bale.Services
             string message,
             string file)
         {
-            if (String.IsNullOrWhiteSpace(to))
-                throw new ArgumentException("شناسه مقصد (chat_id) نمی‌تواند خالی باشد.", "to");
+            message = message.ConvertHtmlToBaleFormat();
 
-            if (String.IsNullOrWhiteSpace(message) is false)
-                message = message.ConvertHtmlToBaleFormat();
-
-            if (String.IsNullOrWhiteSpace(file))
-                await SendTextMessageAsync(to, message);
+            if (String.IsNullOrWhiteSpace(file)) await SendTextMessageAsync(to, message);
             else
                 await SendPhotoMessageAsync(to, file, message);
         }
 
         private async Task SendTextMessageAsync(string to, string message)
         {
-            if (String.IsNullOrWhiteSpace(message))
-                throw new ArgumentException("برای ارسال پیام متنی، فیلد message نباید خالی باشد.", "message");
+            if (String.IsNullOrWhiteSpace(message)) throw new WorkflowException(
+                "مقدار فیلد توضیحات خالی است.",
+                null,
+                null,
+                "کاربر گرامی؛ در تسک ارسال پیغام از طریق بات پیام رسان بله، فیلد توضیحات خالی است. لطفاً مقدار مناسبی برای این فیلد وارد نمایید."
+            );
 
             var data = new
             {
@@ -75,14 +66,13 @@ namespace Summary.Bale.Services
             };
 
             var response = await _client.SendPostRequestAsync<BotApiResponseModel<SendMessageResultModel>>(
-                $"{URL}/bot{_options.ApiAccessKey}/sendMessage",
+                $"{URL}/bot{_options.Token}/sendMessage",
                 data,
-                "application/json",
                 true
             );
 
-            if (response.Ok is false) ThrowExceptionIf.SendMessageResponseIsNotOk(
-                response.Error_Code.ToLegacyErrorCode(),
+            if (response.Ok is false) ThrowExceptionIf.SendBotMessageResponseIsNotOk(
+                response.Error_Code.Value,
                 response.Description,
                 JsonConvert.SerializeObject(data)
             );
@@ -94,18 +84,17 @@ namespace Summary.Bale.Services
             {
                 chat_id = to,
                 photo = file,
-                caption = String.IsNullOrWhiteSpace(caption) ? null : caption
+                caption = caption
             };
 
             var response = await _client.SendPostRequestAsync<BotApiResponseModel<SendPhotoResultModel>>(
-                $"{URL}/bot{_options.ApiAccessKey}/sendPhoto",
+                $"{URL}/bot{_options.Token}/sendPhoto",
                 data,
-                "application/json",
                 true
             );
 
-            if (response.Ok is false) ThrowExceptionIf.SendMessageResponseIsNotOk(
-                response.Error_Code.ToLegacyErrorCode(),
+            if (response.Ok is false) ThrowExceptionIf.SendBotMessageResponseIsNotOk(
+                response.Error_Code.Value,
                 response.Description,
                 JsonConvert.SerializeObject(data)
             );

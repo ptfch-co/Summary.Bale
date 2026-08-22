@@ -13,9 +13,9 @@ namespace Summary.Bale
             if (mobile.IsMobileNo() is false) throw new ObjectDoesNotExist();
         }
 
-        public static void SendMessageResponseIsNotOk(
+        public static void SendSafirMessageResponseIsNotOk(
             Error_Code code,
-            string error_message,
+            string message,
             string data)
         {
             switch (code)
@@ -27,7 +27,7 @@ namespace Summary.Bale
                 case Error_Code.InvalidPhone:
                 case Error_Code.PaymentRequired:
                 case Error_Code.RateLimitExceeded: throw new WorkflowException(
-                    error_message,
+                    message,
                     null,
                     data,
                     "کارشناس پشتیبانی؛ در صورت مشاهده این خطاء تیکت را به سطح بعدی ارجاع دهید.",
@@ -36,6 +36,20 @@ namespace Summary.Bale
 
                 default: throw new NotImplementedException();
             }
+        }
+
+        public static void SendBotMessageResponseIsNotOk(
+            Bot_Error_Code code,
+            string message,
+            string data)
+        {
+            throw new WorkflowException(
+                message,
+                null,
+                data,
+                "کارشناس پشتیبانی؛ در صورت مشاهده این خطاء تیکت را به سطح بعدی ارجاع دهید.",
+                Level.Error
+            );
         }
     }
 }

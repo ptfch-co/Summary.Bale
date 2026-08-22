@@ -33,7 +33,7 @@ namespace Summary.Bale
         public bool Ok { get; set; }
         public T Result { get; set; }
         public Bot_Error_Code? Error_Code { get; set; }
-        public string? Description { get; set; }
+        public string Description { get; set; }
     }
 
     public enum Bot_Error_Code
@@ -85,19 +85,6 @@ namespace Summary.Bale
         public BotChatModel Chat { get; set; }
         public System.Collections.Generic.List<PhotoSizeModel> Photo { get; set; }
         public string Caption { get; set; }
-    }
-
-    public static class Bot_Error_CodeExtensions
-    {
-        public static Error_Code ToLegacyErrorCode(this Bot_Error_Code code)
-        {
-            switch (code)
-            {
-                case Bot_Error_Code.NotFound: return Error_Code.NotBaleUser;
-                case Bot_Error_Code.BadRequest: return Error_Code.InvalidInput;
-                case Bot_Error_Code.Forbidden: return Error_Code.InternalServerError;
-            }
-        }
     }
 }
 
