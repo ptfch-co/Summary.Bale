@@ -1,0 +1,45 @@
+@model Summary.Bale.Workflows.Task.Bot.Message.Send.SendBotMessageInBaleViewModel
+
+<div class="row">
+  <div class="col-md-3">
+    <div class="form-group" asp-validation-class-for="To">
+      <label asp-for="To">
+        شناسه مخاطب (Chat ID)<span class="text-danger">*</span>
+      </label>
+      <input type="text" asp-for="To" class="form-control" />
+      <span class="hint">
+        شناسه‌ی چت مخاطب در پیام‌رسان بله را وارد کنید (کانال/گروه/شخص).
+        توجه داشته باشید مخاطب باید پیش‌تر ربات را استارت کرده باشد، در غیر این صورت پیام ارسال نخواهد شد.
+        chat_id عددی یا نام کاربری به همراه @@ مثال: 23796891 یا @@username
+      </span>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="form-group">
+      <label asp-for="File">
+        لینک تصویر
+      </label>
+      <input type="text" asp-for="File" class="form-control" />
+      <span class="hint">
+        در صورت تمایل به ارسال تصویر، لینک (URL) عمومی و قابل‌دسترس آن را در این فیلد وارد کنید.
+        حداکثر حجم مجاز فایل ۲۰ مگابایت است. توجه داشته باشید در صورت پر بودن این فیلد،
+        متن واردشده در فیلد «متن پیغام» به‌عنوان کپشن همراه تصویر ارسال می‌شود.
+        مثال: https://example.com/path/to/your/file.jpg
+      </span>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="form-group" asp-validation-class-for="Message">
+      <label asp-for="Message">
+        متن پیغام
+      </label>
+      <textarea asp-for="Message" rows="5" class="form-control"></textarea>
+      <span class="hint">
+        متن پیامی که قصد دارید برای مخاطب ارسال شود را وارد کنید.
+        اگر فیلد «لینک تصویر» را نیز پر کرده باشید، این متن به‌عنوان کپشن همراه تصویر ارسال می‌شود و در آن حالت پرکردنش
+        اجباری نیست؛
+        در غیر این صورت (بدون تصویر)، وارد کردن متن پیغام الزامی است.
+      </span>
+    </div>
+  </div>
+</div>

@@ -9,6 +9,7 @@ namespace Summary.Bale
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Options;
     using Summary.Bale.Services;
+    using Summary.Bale.Workflows.Task.Bot.Message.Send;
     using Summary.Bale.Workflows.Task.Message.Send;
 
     [Feature(Bale.Feature.Bale)]
@@ -18,12 +19,14 @@ namespace Summary.Bale
         {
             services.AddScoped<INavigationProvider, Menu>();
             services.AddScoped<ISafirMessageService, SafirMessageService>();
+            services.AddScoped<IBotService, BotService>();
             services.AddScoped<IPermissionProvider, Permissions>();
             services.AddScoped<IDisplayDriver<ISite>, BaleSettingsDisplayDriver>();
 
             services.AddTransient<IConfigureOptions<BaleSettings>, BaleSettingsConfiguration>();
 
             services.AddActivity<SendMessageInBaleTask, SendMessageInBaleTaskDisplay>();
+            services.AddActivity<SendBotMessageInBaleTask, SendBotMessageInBaleDisplay>();
         }
     }
 }

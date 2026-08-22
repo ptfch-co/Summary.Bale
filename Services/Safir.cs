@@ -106,7 +106,7 @@ namespace Summary.Bale.Services
                 true
             );
 
-            if (response.Error_Data != null) ThrowExceptionIf.SendMessageResponseIsNotOk(
+            if (response.Error_Data != null) ThrowExceptionIf.SendSafirMessageResponseIsNotOk(
                 response.Error_Data[0].Code,
                 response.Error_Data[0].Description,
                 JsonConvert.SerializeObject(data)

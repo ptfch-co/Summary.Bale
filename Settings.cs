@@ -7,13 +7,13 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
 using System.Threading.Tasks;
 using Core.Entities;
-using Core.Workflows;
 using Microsoft.AspNetCore.Authorization;
 
 namespace Summary.Bale
 {
     public class BaleSettings
     {
+        public string Token { get; set; }
         public string ApiAccessKey { get; set; }
         public long Bot_Id { get; set; }
     }
@@ -50,6 +50,7 @@ namespace Summary.Bale
             {
                 model.ApiAccessKey = settings.ApiAccessKey;
                 model.Bot_Id = settings.Bot_Id;
+                model.Token = settings.Token;
             });
 
             return init.Location("Content:5").OnGroup("Bale");
@@ -86,6 +87,7 @@ namespace Summary.Bale
             var settings = _site.GetSiteSettingsAsync().GetAwaiter().GetResult().As<BaleSettings>();
             options.ApiAccessKey = settings.ApiAccessKey;
             options.Bot_Id = settings.Bot_Id;
+            options.Token = settings.Token;
         }
     }
 }
