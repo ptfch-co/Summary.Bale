@@ -1,8 +1,8 @@
-name: Bale Self Hosted Runner
+name: Bale Module Build
 
 on:
   workflow_dispatch:
-  
+
   push:
     branches:
       - main
@@ -15,15 +15,20 @@ jobs:
       - module
 
     steps:
-      - name: Checkout code
+      - name: Checkout Module
         uses: actions/checkout@v4
+        with:
+          path: D:\Summary\src\Modules\${{ github.event.repository.name }}
 
-      - name: Show runner information
+      - name: Build Module
+        shell: powershell
         run: |
-          echo "Runner is working"
-          echo "Hostname:"
-          hostname
-          echo "User:"
-          whoami
-          echo "System:"
-          uname -a
+          $module = "${{ github.event.repository.name }}"
+
+          Write-Host "Building module: $module"
+
+          cd D:\Summary-Test\src\Modules\$module
+
+          dotnet restore
+
+          dotnet build --configuration Release
