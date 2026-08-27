@@ -1,0 +1,29 @@
+name: Bale Self Hosted Runner
+
+on:
+  workflow_dispatch:
+  
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on:
+      - self-hosted
+      - summary
+      - module
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Show runner information
+        run: |
+          echo "Runner is working"
+          echo "Hostname:"
+          hostname
+          echo "User:"
+          whoami
+          echo "System:"
+          uname -a
