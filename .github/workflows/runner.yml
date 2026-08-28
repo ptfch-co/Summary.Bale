@@ -1,4 +1,4 @@
-name: Bale Module Build
+name: Build Module
 
 on:
   workflow_dispatch:
@@ -7,28 +7,12 @@ on:
     branches:
       - main
 
+  pull_request:
+    branches:
+      - main
+
 jobs:
   build:
-    runs-on:
-      - self-hosted
-      - summary
-      - module
-
-    steps:
-      - name: Checkout Module
-        uses: actions/checkout@v4
-        with:
-          path: D:\Summary\src\Modules\${{ github.event.repository.name }}
-
-      - name: Build Module
-        shell: powershell
-        run: |
-          $module = "${{ github.event.repository.name }}"
-
-          Write-Host "Building module: $module"
-
-          cd D:\Summary-Test\src\Modules\$module
-
-          dotnet restore
-
-          dotnet build --configuration Release
+    uses: ptfch-co/ci.pipelines/.github/workflows/dotnet-build.yml@main
+    with:
+      module_name: ${{ github.event.repository.name }}
