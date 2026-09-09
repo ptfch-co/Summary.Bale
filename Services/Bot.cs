@@ -65,7 +65,7 @@ namespace Summary.Bale.Services
             };
 
             var response = await _client.SendPostRequestAsync<BotApiResponseModel<SendMessageResultModel>>(
-                $"{URL}/bot{_options.Token}/sendmessage/",
+                $"{URL}/bot{_options.Token}/sendmessage",
                 data,
                 true
             );
