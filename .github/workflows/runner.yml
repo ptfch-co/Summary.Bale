@@ -1,4 +1,4 @@
-name: Build Module
+name: Bale Module Build
 
 on:
   workflow_dispatch:
