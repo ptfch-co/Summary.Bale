@@ -11,7 +11,7 @@ namespace Summary.Bale
         {
             public const string SOfSendMessage = "ارسال پیغام از طریق پیام رسان «بله»";
             public const string DOfSendMessage = "فعالیتی جهت ارسال پیغام تبلیغاتی با استفاده از فیلد موبایل پروفایل مخاطبان در پیام رسان بله.";
-            public const string SOfSendBotMessage = "ارسال پیغام به شخص، کانال و گروه از طریق بات پیام رسان بله";
+            public const string SOfSendBotMessage = "ارسال پیغام از طریق بات";
             public const string DOfSendBotMessage = "فعالیتی جهت ارسال پیغام جدید به PV، کانال و گروه از طریق بات پیام رسان بله.";
         }
 

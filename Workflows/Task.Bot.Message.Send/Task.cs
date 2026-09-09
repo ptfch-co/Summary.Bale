@@ -12,24 +12,22 @@ namespace Summary.Bale.Workflows.Task.Bot.Message.Send
     public class SendBotMessageInBaleTask : TaskActivity
     {
         private readonly IStringLocalizer<SendBotMessageInBaleTask> T;
-        private readonly IBotService _message;
+        private readonly IBotService _bot;
 
-        public SendBotMessageInBaleTask(
-            IStringLocalizer<SendBotMessageInBaleTask> t,
-            IBotService message)
+        public SendBotMessageInBaleTask(IStringLocalizer<SendBotMessageInBaleTask> t,
+            IBotService bot)
         {
             T = t;
-            _message = message;
+            _bot = bot;
         }
 
-        public override string Name => T[Bale.Localization.SOfSendBotMessage];
+        public override string Name => nameof(SendBotMessageInBaleTask);
 
         public override LocalizedString DisplayText => T[Bale.Localization.DOfSendBotMessage];
 
         public override LocalizedString Category => T[Bale.Public.Category];
 
-        public override IEnumerable<Outcome> GetPossibleOutcomes(
-            WorkflowExecutionContext workflowContext,
+        public override IEnumerable<Outcome> GetPossibleOutcomes(WorkflowExecutionContext workflowContext,
             ActivityContext activityContext)
         {
             return Outcomes(T[Bale.Workflows.Done]);
@@ -53,15 +51,14 @@ namespace Summary.Bale.Workflows.Task.Bot.Message.Send
             set => SetProperty(value);
         }
 
-        public override async Task<ActivityExecutionResult> ExecuteAsync(
-            WorkflowExecutionContext workflowContext,
+        public override async Task<ActivityExecutionResult> ExecuteAsync(WorkflowExecutionContext workflowContext,
             ActivityContext activityContext)
         {
             var to = workflowContext.GetInputOrDefault(To);
             var message = workflowContext.GetInputOrDefault(Message);
             var file = workflowContext.GetInputOrDefault(File);
 
-            await _message.SendMessageAsync(
+            await _bot.SendMessageAsync(
                 to,
                 message,
                 file

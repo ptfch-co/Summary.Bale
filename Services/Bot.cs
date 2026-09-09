@@ -22,16 +22,14 @@ namespace Summary.Bale.Services
         private readonly BaleSettings _options;
         private const string URL = "https://tapi.bale.ai";
 
-        public BotService(
-            HttpRequestClient client,
+        public BotService(HttpRequestClient client,
             IOptions<BaleSettings> options)
         {
             _client = client;
             _options = options.Value;
         }
 
-        public async Task SendMessageAsync(
-            string to,
+        public async Task SendMessageAsync(string to,
             string message,
             string file)
         {
@@ -39,10 +37,11 @@ namespace Summary.Bale.Services
 
             if (String.IsNullOrWhiteSpace(file)) await SendTextMessageAsync(to, message);
             else
-                await SendPhotoMessageAsync(to, file, message);
+                await SendFileMessageAsync(to, file, message);
         }
 
-        private async Task SendTextMessageAsync(string to, string message)
+        private async Task SendTextMessageAsync(string to,
+            string message)
         {
             if (String.IsNullOrWhiteSpace(message)) throw new WorkflowException(
                 "مقدار فیلد توضیحات خالی است.",
@@ -66,7 +65,7 @@ namespace Summary.Bale.Services
             };
 
             var response = await _client.SendPostRequestAsync<BotApiResponseModel<SendMessageResultModel>>(
-                $"{URL}/bot{_options.Token}/sendMessage",
+                $"{URL}/bot{_options.Token}/sendmessage/",
                 data,
                 true
             );
@@ -78,7 +77,7 @@ namespace Summary.Bale.Services
             );
         }
 
-        private async Task SendPhotoMessageAsync(string to, string file, string caption)
+        private async Task SendFileMessageAsync(string to, string file, string caption)
         {
             var data = new
             {
@@ -88,7 +87,7 @@ namespace Summary.Bale.Services
             };
 
             var response = await _client.SendPostRequestAsync<BotApiResponseModel<SendPhotoResultModel>>(
-                $"{URL}/bot{_options.Token}/sendPhoto",
+                $"{URL}/bot{_options.Token}/sendphoto",
                 data,
                 true
             );

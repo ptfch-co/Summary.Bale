@@ -2,11 +2,10 @@ namespace Summary.Bale.Workflows.Task.Bot.Message.Send
 {
     using Core.Workflows.Display;
 
-    public class SendBotMessageInBaleDisplay :
-        ActivityDisplayDriver<SendBotMessageInBaleTask, SendBotMessageInBaleViewModel>
+    public class SendBotMessageInBaleDisplay : ActivityDisplayDriver<SendBotMessageInBaleTask,
+        SendBotMessageInBaleViewModel>
     {
-        protected override void EditActivity(
-            SendBotMessageInBaleTask activity,
+        protected override void EditActivity(SendBotMessageInBaleTask activity,
             SendBotMessageInBaleViewModel model)
         {
             model.To = activity.To;
@@ -14,8 +13,7 @@ namespace Summary.Bale.Workflows.Task.Bot.Message.Send
             model.File = activity.File;
         }
 
-        protected override void UpdateActivity(
-            SendBotMessageInBaleViewModel model,
+        protected override void UpdateActivity(SendBotMessageInBaleViewModel model,
             SendBotMessageInBaleTask activity)
         {
             activity.To = model.To;
